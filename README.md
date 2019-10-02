@@ -2,14 +2,13 @@
 Node.js &amp; MySQL Homework Assignment
 
 ## Screen Shot of App Cycle:
-![](images/screen-shot-main.png)
-![](images/screen-shot-default.png)
+![](images/screen-shot.png)
 
-## Link to Video on Github Pages:
+## Link to full app demo on Github Pages:
 
 https://olisun.github.io/liri-node-app/index.html
 
-## User Instructions:
+## User Guide:
 
 
 ## About the project:
@@ -50,9 +49,10 @@ We are tasked with creating an Amazon-like storefront with the MySQL, Node.js, J
 ## Techology Stack:
   * Node.js
   * JavaScript
-  * MySql
   * MySql Workbench
+  * npm mysql
   * npm Inquirer
+  * npm cli-table
 
 ## Methodology:
 
