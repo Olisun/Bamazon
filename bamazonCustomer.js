@@ -75,22 +75,27 @@ function transaction() {
       name: 'numberOfItems',
       message: 'Please select the quantity you want to purchase.'
     }
-    // Using a promise to query the database
+    // Using a promise to query the database.
   ]).then(function(userRespsonseTwo) {
-    //
+    // Using cli-table's npm pacakge to create a transaction summary for the user. 
+    var tableTwo = new Table();
+    // Querying the DB. If the user selected an item that's in stock, show the transaction table.
     connection.query('SELECT * FROM products WHERE item_id=?', userRespsonseTwo.itemId, function(error, response) {
       for (var i = 0; i < response.length; i++) {
+        var totalPurchasePrice = parseInt(userRespsonseTwo.numberOfItems) * parseFloat(response[i].price);
         if (userRespsonseTwo.numberOfItems <= response[i].stock_quantity) {
           console.log(`We have your item(s) in stock. You selected the following:`)
-          console.log(`Item Selected: ${response[i].product_name}`);
-          console.log(`Department: ${response[i].department_name}`);
-          console.log(`Price: ${response[i].price}`);
-          console.log(`Number of Items: ${userRespsonseTwo.numberOfItems}`);
-          console.log(`Total Purchase Price: ` + parseInt(userRespsonseTwo.numberOfItems) * parseFloat(response[i].price));
+            // cli-table doing it's magic.
+          tableTwo.push(
+            // This is a vertical table format. 
+            { 'Product Name:': response[i].product_name }, { 'Department Name:': response[i].department_name }, { 'Item Price:': response[i].price }, { 'Quantity Selected:': userRespsonseTwo.numberOfItems }, { 'Total Purchase Price:': totalPurchasePrice });
+          // if the user selected an amount over what is in stock, she gets this message.
         } else {
           console.log(`Sorry, we don't have enough in stock to fill your order.`)
         }
       }
+      // Calling on cli-table's method to console-log the table. 
+      console.log(tableTwo.toString());
     });
   });
 }
