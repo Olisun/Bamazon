@@ -6,7 +6,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title></title>
+  <title>Bamazon Demo</title>
 
 
   <!-- Bootstrap CSS -->
@@ -22,27 +22,27 @@
   <!-- my CSS -->
 
 
-  <body>
-
-    <video width="800" controls>
-    <source src="" type="video/mp4">
-  </video>
-
-    <video width="800" controls>
-    <source src="" type="video/mp4">
-  </video>
-
-    <div id="typed-strings">
-      <p>This is going to be AWESOME!.</p>
-      <p>Something Exciting</p>
+  <body style="margin: auto;">
+    <div class="jumbotron" style="font-size: 32px; font-family: Monaco, 'Courier New', monospace;">
+      <div class="display-10">
+        <div id="typed-strings">
+          <h1>This is a demo of Bamazon. &nbsp;An application built with Node.js and MySql.</h1>
+        </div>
+        <span id="typed"></span>
+      </div>
     </div>
-    <span id="typed"></span>
+
+    <video width="700" controls>
+    <source src="videos/app.mov" type="video/mp4">
+    </video>
 
     <script>
       var typed = new Typed('#typed', {
         stringsElement: '#typed-strings',
-        typeSpeed: 50,
+        typeSpeed: 60,
+        backSpeed: 10,
         startDelay: 250,
+        loop: true,
       });
     </script>
 
