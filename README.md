@@ -6,7 +6,7 @@ Node.js and MySQL Homework Assignment
 
 ## Link to full app demo on Github Pages:
 
-http://127.0.0.1:5500/homework/Bamazon/index.html
+https://olisun.github.io/Bamazon/index.html
 
 ## User Guide:
 
