@@ -123,9 +123,9 @@ function addToInventory() {
     // Querying the mysql DB to target the low inventory item. 
     connection.query('SELECT * FROM products', function(error, response) {
       // creating a variable for the low inventory item the Bam-Man/Woman selects. 
-      var lowInventoryItem;
       //
       for (var i = 0; i < response.length; i++) {
+        var lowInventoryItem;
         // if the inventory item_id equals the number the Bam-Man/Woman selects, then that is the item to be updated. ParseInting the BMW's input to a number. 
         if (response[i].item_id === parseInt(managerResponse.itemId)) {
           lowInventoryItem = response[i];
