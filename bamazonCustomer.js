@@ -29,8 +29,8 @@ function welcomeToBamazon() {
       default: true
     }
     // Using a promise to show the invetory or shoo the user away if they don't want to spend. 
-  ]).then(function(userResponseThree) {
-    if (userResponseThree.confirmPurchase === true) {
+  ]).then(function(userResponse) {
+    if (userResponse.confirmPurchase === true) {
       // If the user choses yes, then show the table created below.
       showInventory();
     } else {
@@ -83,27 +83,27 @@ function transaction() {
       message: 'Please select the quantity you want to purchase.'
     }
     // Using a promise to query the database.
-  ]).then(function(userRespsonseTwo) {
+  ]).then(function(userRespsonse) {
     // Using cli-table's npm pacakge to create a transaction summary for the user. 
     var tableTwo = new Table();
     // Querying the DB. If the user selected an item that's in stock, show the transaction table.
-    connection.query('SELECT * FROM products WHERE item_id=?', userRespsonseTwo.itemId, function(error, response) {
+    connection.query('SELECT * FROM products WHERE item_id=?', userRespsonse.itemId, function(error, response) {
       for (var i = 0; i < response.length; i++) {
         // Calculating total purchase price. 
-        var totalPurchasePrice = parseInt(userRespsonseTwo.numberOfItems) * parseFloat(response[i].price);
-        if (userRespsonseTwo.numberOfItems <= response[i].stock_quantity) {
+        var totalPurchasePrice = parseInt(userRespsonse.numberOfItems) * parseFloat(response[i].price);
+        if (userRespsonse.numberOfItems <= response[i].stock_quantity) {
           console.log('============================================================');
           console.log(`We have your item(s) in stock. You selected the following:`);
           console.log('============================================================');
           // cli-table doing it's magic.
           tableTwo.push(
             // This is a vertical table format. 
-            { 'Product Name:': response[i].product_name }, { 'Department Name:': response[i].department_name }, { 'Item Price:': response[i].price }, { 'Quantity Selected:': userRespsonseTwo.numberOfItems }, { 'Total Purchase Price:': totalPurchasePrice });
+            { 'Product Name:': response[i].product_name }, { 'Department Name:': response[i].department_name }, { 'Item Price:': response[i].price }, { 'Quantity Selected:': userRespsonse.numberOfItems }, { 'Total Purchase Price:': totalPurchasePrice });
           // Calling on cli-table's method to console-log the table. 
           console.log(tableTwo.toString());
           // Updating the database with the new stock_quantity value after the purchase. 
-          var newStockQuantity = parseInt(response[i].stock_quantity) - parseInt(userRespsonseTwo.numberOfItems);
-          var userBoughtId = userRespsonseTwo.itemId;
+          var newStockQuantity = parseInt(response[i].stock_quantity) - parseInt(userRespsonse.numberOfItems);
+          var userBoughtId = userRespsonse.itemId;
           // Calling the completeTransaction function and passing the updated stock quantity and the item the user selected as arguments. 
           completeTransaction(newStockQuantity, userBoughtId);
           // if the user selected an amount over what is in stock, she gets this message.
@@ -129,11 +129,11 @@ function completeTransaction(newStockQuantity, userBoughtId) {
       default: true
     }
     // If the user confirms, then update the stock quantity.
-  ]).then(function(userResponseThree) {
-    if (userResponseThree.confirmPurchase === true) {
+  ]).then(function(userResponse) {
+    if (userResponse.confirmPurchase === true) {
       // 
       connection.query('UPDATE products SET ? WHERE ?', [
-          //
+          // Mapping stock_quantity and item_id so they can be updated in mysql. 
           {
             stock_quantity: newStockQuantity
           },

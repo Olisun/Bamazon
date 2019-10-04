@@ -10,11 +10,19 @@ https://olisun.github.io/Bamazon/index.html
 
 ## User Guide:
 
+### Customer:
 1. Select "Yes" to view the invetory.
 2. Select the Item ID you like to purchase.
 3. You will get a confirmation of your order.
 4. Select "Yes" to confirm.
 5. You will be taken back to the beginning of the cycle, however, you will see an updated inventory when the new product table is shown.
+
+### Manager:
+1. Select from the drop down menu.
+2. Each selection you will have the option to select another item from the menu in the command line.
+3. Add to inventory, select the Item ID and follow the questions.
+4. Add a new product, pick a new item ID (should be 2 digits or less and not be a current product ID) and follow the questions.
+
 
 ## About the project:
 We are tasked with creating an Amazon-like storefront with the MySQL, Node.js, JavaScript, npm Inquirer and MySql Workbench. The app will take in orders from customers and deplete stock from the store's inventory. Bonus tasks include tracking product sales across the store's departments and providing a summary of the highest-grossing departments in the store.
@@ -53,6 +61,7 @@ We are tasked with creating an Amazon-like storefront with the MySQL, Node.js, J
 
 ## Stretch Goals
   * Creating separate js files for Manager and Supervisor views mentioned in the About the Project section. I will try the manager one but I'm not sure If will be able to meet tomorrow's deadline.
+  * Manager goal completed!
 
 ## Techology Stack:
   * Node.js
@@ -61,6 +70,7 @@ We are tasked with creating an Amazon-like storefront with the MySQL, Node.js, J
   * npm mysql
   * npm Inquirer
   * npm cli-table
+  * Typed.js (for index.html jumbotron affect).
 
 ## Methodology:
 I followed the class activites in node, inquirer and mysql and used them as guidelines. 
@@ -69,11 +79,15 @@ I created four functions. One which prompts the user to and triggers the second 
 
 I also installed a table library from npm called cli-table. It formats data into tables. I made a horizontal table for the main products inventory and an vertical table for the customer receipt.
 
+Just completed the manager challange. I basically used the code from customer.js and changed the the logic and the variables. The way the functions were structured stay mostly similar.
+
 ## Problems That I Overcame:
 
 My biggest challange was implementing the tables and getting the data properly appeneded to the tables. Much of it had to do with where I called the functions. Much of the boilerplate code was provided in the docs.
 
 I also had some bugs initially updating the database after a completed transaction. I read threw the mysql docs to get the proper code structure and methods to update. I also remembered to convert the numbers to numbers with parseInt.
+
+On manager, I had problems appending a new product row. I overcame this by studing the error messages and realized that I did not have a map from the item_id in the mysql db. To the function that was creating the new product.
 
 ## Problems Still Facing:
 
@@ -132,8 +146,22 @@ Updating the inventory.
           if (error) throw error;
         });
 ```
+Adding a new product as a manager.
+```
+ connection.query('INSERT INTO products SET ?',
+      // passing an the new product info (as an object) as an argument in the comnnection.query method. 
+      {
+        item_id: managerResponse.itemID,
+        product_name: managerResponse.product,
+        department_name: managerResponse.department,
+        price: managerResponse.price,
+        stock_quantity: managerResponse.quantity
+      },
+```
 
 ## Link to my Portfolio Page on Github where this app is listed in the portfolio section.
 
 https://olisun.github.io/Updated-Portfolio-Page/
 
+## You can also reach me on LinkedIn.
+https://www.linkedin.com/in/oliver-sun-4b6baba/
